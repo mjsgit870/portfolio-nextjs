@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.primary {
+  background-color: #243b4a;
+}
+
+.secondary {
+  background-color: #2d4654;
+}
+
+.radius {
+  border-radius: 10px;
+}
+
+.navbar {
+  background-color: #4b5563;
+}
+
+.navbar-link {
+  background-color: #d1d5db;
+}
