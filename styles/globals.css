@@ -35,3 +35,15 @@ a {
 .li {
   @apply w-full h-full text-center hover:bg-gray-400 hover:text-black py-2;
 }
+
+.card {
+  @apply w-40 p-6 bg-gray-300 bg-opacity-50 rounded-lg mb-2 filter drop-shadow-xl;
+}
+
+.card-text {
+  @apply rounded-lg text-center py-1 font-bold text-white bg-opacity-50;
+}
+
+.text-color {
+  color: #87bcde;
+}
