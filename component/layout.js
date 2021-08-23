@@ -1,5 +1,5 @@
-import Navbar from "./navbar";
-import Sidebar from "./sidebar";
+import Navbar from "../component/navbar";
+import Sidebar from "../component/sidebar";
 
 export default function Layout({ children }) {
   const date = new Date();

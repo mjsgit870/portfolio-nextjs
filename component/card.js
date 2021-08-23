@@ -1,9 +1,9 @@
-import React from "../../src/img/atom.png";
-import Php from "../../src/img/php-code.png";
-import Javascript from "../../src/img/javascript.png";
-import Html from "../../src/img/html.png";
-import Css from "../../src/img/css.png";
-import Ide from "../../src/img/visual-studio.png";
+import React from "../src/img/atom.png";
+import Php from "../src/img/php-code.png";
+import Javascript from "../src/img/javascript.png";
+import Html from "../src/img/html.png";
+import Css from "../src/img/css.png";
+import Ide from "../src/img/visual-studio.png";
 
 import Image from "next/image";
 

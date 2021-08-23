@@ -1,5 +1,5 @@
 import Image from "next/image";
-import profile from "../../src/img/profile.png";
+import profile from "../src/img/profile.png";
 
 export default function Sidebar() {
   return (
