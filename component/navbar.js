@@ -7,21 +7,21 @@ export default function Navbar() {
   return (
     <div className="navbar radius overflow-hidden">
       <ul className="flex justify-around font-bold">
-        <Link href="/">
-          <li className={router.pathname == "/" ? "active-link li" : "li"}>
+        <li className={router.pathname == "/" ? "active-link li" : "li"}>
+          <Link href="/">
             <a>HOME</a>
-          </li>
-        </Link>
-        <Link href="/blog">
-          <li className={router.pathname == "/blog" ? "active-link li" : "li"}>
+          </Link>
+        </li>
+        <li className={router.pathname == "/blog" ? "active-link li" : "li"}>
+          <Link href="/blog">
             <a>BLOG</a>
-          </li>
-        </Link>
-        <Link href="/about">
-          <li className={router.pathname == "/about" ? "active-link li" : "li"}>
+          </Link>
+        </li>
+        <li className={router.pathname == "/about" ? "active-link li" : "li"}>
+          <Link href="/about">
             <a>ABOUT</a>
-          </li>
-        </Link>
+          </Link>
+        </li>
       </ul>
     </div>
   );
