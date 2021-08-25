@@ -27,7 +27,10 @@ export default function Slug({ blog }) {
   return (
     <div>
       <div>
-        <img src={blog.header.name}></img>
+        <img
+          src={`${process.env.API_URL}${blog.header.formats.small.url}`}
+          className="md:h-60 mx-auto rounded-md"
+        ></img>
       </div>
       <div>{blog.author.name}</div>
       <div>{blog.title}</div>
