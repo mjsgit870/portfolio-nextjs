@@ -1,52 +1,97 @@
-import {useRouter} from 'next/router'
-
 export async function getStaticPaths() {
-  const res = await fetch(`${process.env.API_URL}/blogs`);
-  const datas = await res.json();
+  const res = await fetch(`${process.env.API_URL}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      query: `
+        query AllPost {
+          posts {
+            nodes {
+              slug
+            }
+          }
+        }
+      `,
+    }),
+  });
+
+  const json = await res.json();
+  const datas = json.data.posts.nodes;
+
+  const paths = datas.map((post) => ({
+    params: { slug: post.slug },
+  }));
 
   return {
-    paths: datas.map((data) => ({
-      params: {
-        slug: String(data.slug),
-      },
-    })),
-    fallback: true,
+    paths,
+    fallback: false,
   };
 }
 
-export const api_uri = 'https://web-profile-mjs.herokuapp.com'
+export async function getStaticProps(context) {
+  const res = await fetch(`${process.env.API_URL}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      query: `
+        query OnePost($id: ID!, $idType: PostIdType!) {
+          post(id: $id, idType: $idType) {
+            author {
+              node {
+                avatar {
+                  url
+                }
+                name
+              }
+            }
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+            id
+            title
+            slug
+            content
+          }
+        }
+      `,
+      variables: {
+        id: context.params.slug,
+        idType: "SLUG",
+      },
+    }),
+  });
+  const json = await res.json();
 
-export async function getStaticProps({ params: { slug } }) {
-  
-  const res = await fetch(`${api_uri}/blogs?slug=${slug}`);
-  const dts = await res.json();
-  
   return {
     props: {
-      blog: dts[0],
+      blog: json.data.post,
     },
   };
 }
 
 export default function Slug({ blog }) {
-
-  const router = useRouter()
-
-  if(router.isFallback) {
-    return <h1>Loading</h1>
-  }
-
+  console.log(blog);
   return (
     <div>
-      <div>
-        <img
-          src={`${api_uri}${blog.header.formats.url}`}
-          className="md:h-60 mx-auto rounded-md"
-        ></img>
+      <div className="rounded-md overflow-hidden">
+        <img src={blog.featuredImage.node.sourceUrl}></img>
       </div>
-      <div>{blog.author.name}</div>
-      <div>{blog.title}</div>
-      <div>{blog.body}</div>
+      <div className="flex items-center justify-center py-3">
+        <img
+          className="rounded-full w-10 h-10 mr-3"
+          src={blog.author.node.avatar.url}
+        ></img>
+        <div>
+          <span className="text-gray-400 font-medium">Author by</span>{" "}
+          {blog.author.node.name}
+        </div>
+      </div>
+      <article
+        dangerouslySetInnerHTML={{ __html: blog.content }}
+        className="py-2 lg:px-5"
+      ></article>
     </div>
   );
 }
