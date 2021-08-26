@@ -72,7 +72,6 @@ export async function getStaticProps(context) {
 }
 
 export default function Slug({ blog }) {
-  console.log(blog);
   return (
     <div>
       <div className="rounded-md overflow-hidden">

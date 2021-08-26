@@ -1,11 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 
-
 export async function getStaticProps() {
   const res = await fetch(`${process.env.API_URL}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       query: `
         query AllPost {
@@ -31,22 +30,20 @@ export async function getStaticProps() {
             }
           }
         }
-      `
-    })
-  })
+      `,
+    }),
+  });
 
-  const posts = await res.json()
+  const posts = await res.json();
 
   return {
     props: {
-      posts: posts.data.posts.edges
-    }
-  }
-
+      posts: posts.data.posts.edges,
+    },
+  };
 }
 
 export default function Blog({ posts }) {
-  console.log(posts)
   return (
     <div>
       {posts.map((post) => (
@@ -54,7 +51,10 @@ export default function Blog({ posts }) {
           <a>
             <div className="grid lg:grid-cols-3 lg:gap-3 shadow-sm hover:shadow-lg transition ease-in-out duration-300 mb-3">
               <div className="lg:col-span-1 bg-gray-300 rounded-lg overflow-hidden">
-                <img src={post.node.featuredImage.node.sourceUrl} className="min-w-full min-h-full object-cover"></img>
+                <img
+                  src={post.node.featuredImage.node.sourceUrl}
+                  className="min-w-full min-h-full object-cover"
+                ></img>
               </div>
               <div className="lg:col-span-2 py-3 px-2 lg:p-0 hover:gray-400">
                 <div className="text-color font-medium tracking-wide text-xl">
