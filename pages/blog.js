@@ -1,40 +1,69 @@
 import Image from "next/image";
 import Link from "next/link";
 
+
 export async function getStaticProps() {
-  console.log(process.env.API_URL);
-  const data = await fetch(`${process.env.API_URL}/blogs`);
-  const res = await data.json();
+  const res = await fetch(`${process.env.API_URL}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      query: `
+        query AllPost {
+          posts {
+            edges {
+              node {
+                id
+                slug
+                title
+                featuredImage {
+                  node {
+                    sourceUrl
+                  }
+                }
+                content
+                author {
+                  node {
+                    name
+                    nickname
+                  }
+                }
+              }
+            }
+          }
+        }
+      `
+    })
+  })
+
+  const posts = await res.json()
 
   return {
     props: {
-      blogs: res,
-    },
-  };
+      posts: posts.data.posts.edges
+    }
+  }
+
 }
 
-export default function Blog({ blogs }) {
+export default function Blog({ posts }) {
+  console.log(posts)
   return (
     <div>
-      {blogs.map((blog) => (
-        <Link href={`/blog/${blog.slug}`} key={blog.id}>
+      {posts.map((post) => (
+        <Link key={post.node.id} href={`/blog/${post.node.slug}`}>
           <a>
-            <div className="grid lg:grid-cols-3 lg:gap-3 shadow-sm hover:shadow-lg transition ease-in-out duration-300 mb-3">
+            <div className="grid lg:grid-cols-3 lg:gap-3 shadow-sm hover:shadow-lg hover:gray-400 transition ease-in-out duration-300 mb-3">
               <div className="lg:col-span-1 bg-gray-300 rounded-lg overflow-hidden">
-                <img
-                  src={`https://web-profile-mjs.herokuapp.com${blog.header.url}`}
-                  className="lg:h-full w-full"
-                ></img>
+                <img src={post.node.featuredImage.node.sourceUrl} className="min-w-full min-h-full object-cover"></img>
               </div>
               <div className="lg:col-span-2 py-3 px-2 lg:p-0">
                 <div className="text-color font-medium tracking-wide text-xl">
-                  {blog.title}
+                  {post.node.title}
                 </div>
                 <div>
                   <span className="font-light text-sm">Author :</span>
-                  {blog.author.name}
+                  {post.node.author.node.name}
                 </div>
-                <div>{blog.body}</div>
               </div>
             </div>
           </a>
