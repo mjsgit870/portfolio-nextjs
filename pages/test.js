@@ -1,5 +1,4 @@
 export default function Test({ posts }) {
-  console.log(posts);
   return (
     <div>
       {posts.map((post) => (

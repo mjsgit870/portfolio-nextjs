@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
+import Head from "next/head";
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const res = await fetch(`${process.env.API_URL}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -33,7 +33,6 @@ export async function getStaticProps() {
       `,
     }),
   });
-
   const posts = await res.json();
 
   return {
@@ -46,6 +45,9 @@ export async function getStaticProps() {
 export default function Blog({ posts }) {
   return (
     <div>
+      <Head>
+        <title>MJS Profile | Blog Page</title>
+      </Head>
       {posts.map((post) => (
         <Link key={post.node.id} href={`/blog/${post.node.slug}`}>
           <a>

@@ -1,34 +1,6 @@
-export async function getStaticPaths() {
-  const res = await fetch(`${process.env.API_URL}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      query: `
-        query AllPost {
-          posts {
-            nodes {
-              slug
-            }
-          }
-        }
-      `,
-    }),
-  });
+import Head from "next/head";
 
-  const json = await res.json();
-  const datas = json.data.posts.nodes;
-
-  const paths = datas.map((post) => ({
-    params: { slug: post.slug },
-  }));
-
-  return {
-    paths,
-    fallback: false,
-  };
-}
-
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const res = await fetch(`${process.env.API_URL}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -74,6 +46,9 @@ export async function getStaticProps(context) {
 export default function Slug({ blog }) {
   return (
     <div>
+      <Head>
+        <title>MJS Profile | {blog.title} Page</title>
+      </Head>
       <div className="rounded-md overflow-hidden">
         <img src={blog.featuredImage.node.sourceUrl}></img>
       </div>
@@ -87,6 +62,7 @@ export default function Slug({ blog }) {
           {blog.author.node.name}
         </div>
       </div>
+      <div className="py-2 lg:px-5 font-semibold text-xl">{blog.title}</div>
       <article
         dangerouslySetInnerHTML={{ __html: blog.content }}
         className="py-2 lg:px-5"
