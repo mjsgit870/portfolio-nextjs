@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 
 export async function getServerSideProps(context) {
   const res = await fetch(`${process.env.API_URL}`, {
@@ -49,6 +50,11 @@ export default function Slug({ blog }) {
       <Head>
         <title>MJS Profile | {blog.title} Page</title>
       </Head>
+      <Link href="/blog">
+        <div className="mb-3 text-lg bg-blue-400 bg-opacity-20 rounded-lg px-2 max-w-max cursor-pointer">
+          <i className="far fa-angle-double-left mr-2"></i>Back
+        </div>
+      </Link>
       <div className="rounded-md overflow-hidden">
         <img src={blog.featuredImage.node.sourceUrl}></img>
       </div>
