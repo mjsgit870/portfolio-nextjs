@@ -34,6 +34,7 @@ export default function About({ age }) {
         <div className="grid lg:grid-cols-5 grid-cols-2 gap-4 place-items-center">
           <a
             target="_blank"
+            rel="noreferrer"
             href="https://wa.me/+6281933511948"
             className="bg-green-300 bg-opacity-20 hover:bg-opacity-50 duration-300 cursor-pointer min-w-full py-1 px-4 text-center rounded-full"
           >
@@ -42,6 +43,7 @@ export default function About({ age }) {
           </a>
           <a
             target="_blank"
+            rel="noreferrer"
             href="https://www.github.com/mjsgit870"
             className="bg-gray-300 bg-opacity-20 hover:bg-opacity-50 duration-300 cursor-pointer min-w-full py-1 px-4 text-center rounded-full"
           >
@@ -50,6 +52,7 @@ export default function About({ age }) {
           </a>
           <a
             target="_blank"
+            rel="noreferrer"
             href="https://www.instagram.com/m.julian.sa"
             className="bg-pink-300 bg-opacity-20 hover:bg-opacity-50 duration-300 cursor-pointer min-w-full py-1 px-4 text-center rounded-full"
           >
@@ -58,6 +61,7 @@ export default function About({ age }) {
           </a>
           <a
             target="_blank"
+            rel="noreferrer"
             href="https://www.tutorialit.ml"
             className="bg-yellow-300 bg-opacity-20 hover:bg-opacity-50 duration-300 cursor-pointer min-w-full py-1 px-4 text-center rounded-full"
           >
@@ -66,6 +70,7 @@ export default function About({ age }) {
           </a>
           <a
             target="_blank"
+            rel="noreferrer"
             href="mailto:saputraj870@gmail.com"
             className="bg-red-300 bg-opacity-20 hover:bg-opacity-50 duration-300 cursor-pointer min-w-full py-1 px-4 text-center rounded-full"
           >
