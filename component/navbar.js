@@ -5,7 +5,7 @@ export default function Navbar() {
   const router = useRouter();
 
   return (
-    <div className="navbar radius overflow-hidden antialiased">
+    <div className="navbar radius overflow-hidden antialiased m-2">
       <ul className="flex justify-around font-bold">
         <li className={router.pathname == "/" ? "active-link li" : "li"}>
           <Link href="/">

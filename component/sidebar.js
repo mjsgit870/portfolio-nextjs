@@ -1,9 +1,19 @@
 import Image from "next/image";
 import profile from "../src/img/profile.png";
+import { useRouter } from "next/router";
+import getAge from "./getAge";
 
-export default function Sidebar() {
+export default function Sidebar({ age }) {
+  const route = new useRouter();
+
   return (
-    <div className="secondary md:pt-20 pt-2 pb-2 px-3 radius flex justify-center">
+    <div
+      className={
+        route.pathname === "/about"
+          ? "hidden"
+          : "secondary md:pt-20 pt-2 pb-2 px-3 radius flex justify-center"
+      }
+    >
       <div className="md:inline flex items-center">
         <div className="w-20 md:w-full mr-2">
           <Image src={profile} />
@@ -14,7 +24,7 @@ export default function Sidebar() {
           </h1>
           <div className="md:text-center">
             <p className="font-light text-sm hidden md:block">umur</p>
-            <p className="tracking-widest">19 Tahun</p>
+            <p className="tracking-widest">{getAge(age)} Tahun</p>
           </div>
           <div className="md:text-center">
             <p className="font-light text-sm hidden md:block">jurusan</p>
